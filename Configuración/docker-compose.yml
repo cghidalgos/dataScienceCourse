@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-
+  
   db:
     container_name: postgres
     image: postgres
@@ -12,6 +12,11 @@ services:
       POSTGRES_DB: airQuality
     ports:
       - "5432:5432"
+    # El servicio de PostgreSQL se iniciará con el nombre de contenedor 'postgres'.
+    # Se configurará con el nombre de host 'postgreServer' y siempre se reiniciará en caso de fallo.
+    # Las credenciales de acceso son 'root' tanto para el usuario como para la contraseña.
+    # La base de datos 'airQuality' se creará automáticamente.
+    # El puerto 5432 del contenedor se mapeará al puerto 5432 de la máquina local.
 
   pgadmin:
     container_name: pgadmin4
@@ -22,16 +27,24 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "5050:80"
-    #docoker inspect pgadmin4 para ver la ip
+    # El servicio de pgAdmin4 se iniciará con el nombre de contenedor 'pgadmin4'.
+    # La interfaz web de pgAdmin será accesible en http://localhost:5050.
+    # Utiliza el correo 'admin@admin.com' y la contraseña 'root' para iniciar sesión.
+    # Recuerda: Puedes inspeccionar el contenedor usando 'docker inspect pgadmin4' para ver su IP.
 
   datascience-notebook:
-    container_name:   jupyter_notebook
-    image:    jupyter/datascience-notebook
+    container_name: jupyter_notebook
+    image: jupyter/datascience-notebook
     volumes:
       #- /pon/tu/ruta/aqui:/home/jovyan 
+      # Mapea la carpeta de trabajo local a la ruta del contenedor donde Jupyter almacenará los notebooks.
       - /Users/giovannyhidalgo/Documents/jupyter/work:/home/jovyan
     ports:
-      - 8888:8888 
-      # al finalizar la instalacion, escriba en consola
-      # docker exec -it jupyter_notebook jupyter server list
-      # ese codigo es para ingresar a jupyter (cuando pida la contraseña)
+      - "8888:8888"
+    # El servicio Jupyter Notebook se iniciará con el nombre de contenedor 'jupyter_notebook'.
+    # La carpeta de trabajo local en '/Users/giovannyhidalgo/Documents/jupyter/work' se mapeará a '/home/jovyan' en el contenedor.
+    # El puerto 8888 del contenedor se mapeará al puerto 8888 de la máquina local.
+
+    # Después de iniciar el contenedor, utiliza el comando:
+    # docker exec -it jupyter_notebook jupyter server list
+    # para obtener el token necesario para acceder a Jupyter Notebook desde el navegador.
