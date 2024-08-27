@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+
+  db:
+    container_name: postgres
+    image: postgres
+    hostname: postgreServer
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: airQuality
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    #docoker inspect pgadmin4 para ver la ip
+
+  datascience-notebook:
+    container_name:   jupyter_notebook
+    image:    jupyter/datascience-notebook
+    volumes:
+      #- /pon/tu/ruta/aqui:/home/jovyan 
+      - /Users/giovannyhidalgo/Documents/jupyter/work:/home/jovyan
+    ports:
+      - 8888:8888 
+      # al finalizar la instalacion, escriba en consola
+      # docker exec -it jupyter_notebook jupyter server list
+      # ese codigo es para ingresar a jupyter (cuando pida la contraseña)
