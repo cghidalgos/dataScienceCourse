@@ -38,4 +38,4 @@ Este repositorio contiene los materiales y talleres para el curso de Ciencia de 
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/cgiohidalgo/dataScienceCourse
+   git clone https://github.com/cghidalgos/dataScienceCourse
